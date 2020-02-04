@@ -15,7 +15,7 @@ as shell variables.
 | Config Value  | Description |
 | :-------------  |:------------- |
 `TWILIO_ACCOUNT_SID` | Your primary Twilio account identifier - find this [in the console here](https://www.twilio.com/console).
-`TWILIO_AUTH_TOKEN` | Auth Token  - find this [in the console here](https://www.twilio.com/
+`TWILIO_AUTH_TOKEN` | Auth Token  - find this [in the console here](https://www.twilio.com/console).
 
 ### Install all node dependencies
 
