@@ -10,12 +10,13 @@ This sample project is based on node.js and Express to provoide a simple client 
 ## Configure the sample application
 
 To run the application, you'll need to gather your Twilio account credentials and configure them
-as shell variables. 
+as shell variables or in the .env file
 
 | Config Value  | Description |
 | :-------------  |:------------- |
 `TWILIO_ACCOUNT_SID` | Your primary Twilio account identifier - find this [in the console here](https://www.twilio.com/console).
 `TWILIO_AUTH_TOKEN` | Auth Token  - find this [in the console here](https://www.twilio.com/console).
+`TWILIO_PHONE` | Any SMS enabled Twilio Phone #
 
 ### Install all node dependencies
 
