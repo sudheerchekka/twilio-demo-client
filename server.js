@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs')
 
 
-console.log ('Twilio Account SID:' + accountSid);
+console.log ('Twilio Account SID:' + accountSid); 
 console.log ('Twilio Phone:' + from_twilio);
 
 
@@ -50,10 +50,13 @@ app.post('/sms', function (req, res) {
 //send SMS with Twilio API
 app.post('/', function (req, res) {
   smsResponse = "";
-  let customer_phone = req.body.cust_phone;
-  let smsBody = req.body.msgPicker;
+  let customer_phone = "+1" + req.body.cust_phone;
+  let customer_name = req.body.cust_name;
+  //let smsBody = req.body.msgPicker;
+  smsBody = "Hi " + customer_name + ", thanks for contacting Vivint SmartHome. A sales pro will reach out to you shortly. Are you interested in home security, automation, cameras or speak to an agent now ?";
 
-  console.log ("req.body.msgPicker: " + req.body.msgPicker);
+  console.log ("req.body.cust_phone: " + req.body.cust_phone);
+  console.log ("req.body.cust_name: " + req.body.cust_name);
   
   client.messages
   .create({
@@ -64,8 +67,10 @@ app.post('/', function (req, res) {
   
       if (!error){
          res.render('index', {result: 'SMS sent successfully', error: null});
+         console.log("SMS sent successfully !");
       } else {
-	      res.render('index', {result: 'default message', error: 'Error, please try again'});
+        res.render('index', {result: 'default message', error: 'Error, please try again'});
+        console.log(error);
       }
    
    });

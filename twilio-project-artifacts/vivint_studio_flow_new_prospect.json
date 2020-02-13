@@ -1,0 +1,189 @@
+{
+    "description": "Vivint Sales bot",
+    "states": [
+      {
+        "name": "Trigger",
+        "type": "InitialState",
+        "properties": {
+          "offset": {
+            "x": -10,
+            "y": -20
+          },
+          "flow_url": "https://webhooks.twilio.com/v1/Accounts/AC3e3f26ef246cde305b2126396c65ab9b/Flows/FWd4fcc4a411837f9116f93c2fe4068300"
+        },
+        "transitions": [
+          {
+            "event": "incomingMessage",
+            "conditions": [],
+            "next": "FF48b9146788aed0b2312f1b118587c3f9",
+            "uuid": "4b25be07-856d-43bd-994a-63ab40b509c5"
+          },
+          {
+            "event": "incomingCall",
+            "conditions": [],
+            "next": "FF48b9146788aed0b2312f1b118587c3f9",
+            "uuid": "3908ab85-c83c-4981-9bb7-ff81de76a60a"
+          },
+          {
+            "event": "incomingRequest",
+            "conditions": [],
+            "next": null,
+            "uuid": "6776b1e3-f0c4-4d26-abee-dbb6391db27e"
+          }
+        ],
+        "sid": "FFf34be0e68d32cfa78eb4b0ddcfde1ccb"
+      },
+      {
+        "name": "place_call_to_agent",
+        "type": "Function",
+        "properties": {
+          "offset": {
+            "x": -250,
+            "y": 750
+          },
+          "url": "https://black-bee-6064.twil.io/call_vivint_sales_pro",
+          "timeout": null,
+          "parameters": [
+            {
+              "key": "skill_type",
+              "value": "{{widgets.vivint_sales_bot.memory.skill_type}}"
+            },
+            {
+              "key": "phone",
+              "value": "{{flow.channel.address}}"
+            },
+            {
+              "key": "contact_phone",
+              "value": "{{contact.channel.address}}"
+            }
+          ],
+          "service_sid": null,
+          "function_sid": null,
+          "environment_sid": null
+        },
+        "transitions": [
+          {
+            "event": "success",
+            "conditions": [],
+            "next": null,
+            "uuid": "2b8ae27f-0d1a-4c45-935e-6d1246188a0c"
+          },
+          {
+            "event": "fail",
+            "conditions": [],
+            "next": null,
+            "uuid": "42b442d5-fe5c-4638-9e5a-528b83d76bea"
+          }
+        ],
+        "sid": "FFaad3cf9ac6a7b8117c03766195065888"
+      },
+      {
+        "name": "vivint_sales_bot",
+        "type": "Autopilot",
+        "properties": {
+          "offset": {
+            "x": -500,
+            "y": 330
+          },
+          "autopilot_assistant_sid": "UAabc33a3644f5f55fee9a3bf64820d170",
+          "model_sid": null,
+          "from": "{{flow.channel.address}}",
+          "body": "{{trigger.message.Body}}",
+          "chat_service": "{{trigger.message.InstanceSid}}",
+          "chat_channel": "{{trigger.message.ChannelSid}}",
+          "chat_attributes": null,
+          "timeout": 3600,
+          "target_task": null,
+          "memory_parameters": null
+        },
+        "transitions": [
+          {
+            "event": "sessionEnded",
+            "conditions": [],
+            "next": "FFf509ce32f748a61e26220a4228df7424",
+            "uuid": "a44652a9-273f-4ac2-b11c-fb991cecf6ca"
+          },
+          {
+            "event": "failure",
+            "conditions": [],
+            "next": null,
+            "uuid": "004f072a-4094-423f-925b-ad8318103930"
+          }
+        ],
+        "sid": "FF48b9146788aed0b2312f1b118587c3f9"
+      },
+      {
+        "name": "checking_for_agent_task",
+        "type": "Branch",
+        "properties": {
+          "offset": {
+            "x": 130,
+            "y": 330
+          },
+          "input": "{{widgets.vivint_sales_bot.CurrentTask}}"
+        },
+        "transitions": [
+          {
+            "event": "noMatch",
+            "conditions": [],
+            "next": null,
+            "uuid": "cf265e9a-8d6c-4fdb-b4bf-dd0e7d697680"
+          },
+          {
+            "event": "match",
+            "conditions": [
+              {
+                "friendly_name": "If value equal_to contact_nurse",
+                "type": "equal_to",
+                "arguments": [
+                  "{{widgets.vivint_sales_bot.CurrentTask}}"
+                ],
+                "value": "chat_with_agent"
+              }
+            ],
+            "next": "FF1328ee211d5b710c14a2059622ce3c06",
+            "uuid": "febcbc74-defc-4fd5-a1a7-9e2e5b8fe899"
+          }
+        ],
+        "sid": "FFf509ce32f748a61e26220a4228df7424"
+      },
+      {
+        "name": "send_to_flex_1",
+        "type": "SendToFlex",
+        "properties": {
+          "offset": {
+            "x": 260,
+            "y": 790
+          },
+          "workflow": "WWaea4ce499878f3f4890ec786a00cf991",
+          "channel": "TCc4ea58b616928a4762eba96f7d64285d",
+          "attributes": "{\"skill_value\":\"{{widgets.vivint_sales_bot.memory.skill_type}}\" }",
+          "timeout": null,
+          "priority": null,
+          "waitUrl": null,
+          "waitUrlMethod": null
+        },
+        "transitions": [
+          {
+            "event": "callComplete",
+            "conditions": [],
+            "next": null,
+            "uuid": "604be991-e988-4e81-9b58-1672de321d5d"
+          },
+          {
+            "event": "failedToEnqueue",
+            "conditions": [],
+            "next": null,
+            "uuid": "3317cb13-4465-4e98-97f5-c3dee2d4f5c6"
+          },
+          {
+            "event": "callFailure",
+            "conditions": [],
+            "next": null,
+            "uuid": "d483043e-b148-4014-bd4a-c1aa4f889ad2"
+          }
+        ],
+        "sid": "FF1328ee211d5b710c14a2059622ce3c06"
+      }
+    ]
+  }

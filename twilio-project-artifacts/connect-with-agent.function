@@ -1,0 +1,119 @@
+/*
+    Synopsis:  
+    Function used in iOS app demo to initiate a call to user provided cell number and route customer call 
+    into Flex;
+    
+    Inputs:
+        - event.mode            =>  mode of function usage
+            initOutbound        -   create the conference room and join outbound call into conference
+        - event.phoneNumber     -   number to call; represents the cell number of the customer requesting the call
+*/
+exports.handler = function(context, event, callback) {
+    const random = require('random');           //  include random - generate random 5-digit conf code
+    const client = context.getTwilioClient();
+    let twimlResponse = new Twilio.twiml.VoiceResponse();
+    
+    
+      let response = new Twilio.Response()
+      let headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json',
+      }
+    
+    console.log('=======mode========');
+    console.log('mode: ' + event.mode);
+    
+    //TODO: remove hard coded Flex #
+    let twilioOutboundNumber = '+12038069587';
+    
+    
+    
+    switch (event.mode)
+    {
+        case 'initOutbound':
+            //  create unique conference Namespace
+            //
+            
+            let numberToCall = event.phoneNumber;
+            console.log('phoneNumber: ' + event.phoneNumber);
+            console.log("numberToCall: " + numberToCall);
+            
+            //  create outbound call
+            client.preview.trusted_comms.phoneCalls
+                .create({
+                     reason: 'Following up to your Vivint inquiry',
+                     url: 'https://celadon-greyhound-9622.twil.io/connect-with-agent?mode=menu&numberToCall=' + numberToCall,
+                     to: numberToCall,
+                     from: twilioOutboundNumber,
+                     timeout: 20,
+                     statusCallback: 'https://celadon-greyhound-9622.twil.io/connect-with-agent?mode=callStatus',
+                     statusCallbackEvent: ['initiated','ringing','answered', 'completed'],
+                     statusCallbackMethod: 'POST'
+                  })
+                  .then( function(call) {
+                      console.log('complete');
+                      
+                      response.setBody({"result" : "Connecting your Call"})
+                      
+                      callback(null, response);
+                  } );
+       break;
+       
+        case 'menu':
+            //  present menu greeting to customer
+            
+            //  get number caller (customer number)
+            let callerNumber = event.numberToCall;
+            
+            console.log("callerNumber: " + callerNumber);
+            
+            twimlResponse.say({
+                language : 'en-US',
+                voice : 'Polly.Joanna'},
+                'Thank you for your call request. Please wait while I connect you to a care specialist.');
+                
+            let jsonTaskAttributes = { "type": "inbound", "name": callerNumber }
+            twimlResponse.enqueue({
+                waitUrl: 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.guitars',
+                workflowSid : 'WWaea4ce499878f3f4890ec786a00cf991'
+            })
+            .task({}, JSON.stringify(jsonTaskAttributes));
+            //response.setBody(twimlResponse);
+            callback(null, twimlResponse);
+            break;
+        
+        //  logic for processing the callstatus on the outbound call attempt
+        //
+        case 'callStatus':
+            //  log call progress (status)
+            //console.log('======callStatus=======')
+            let result = {};
+            switch (event.CallStatus)
+            {
+                case 'no-answer':
+                    console.log('status: ' + event.CallStatus );
+                    result = {'result': 'no-answer'};
+                    break;
+                case 'completed':
+                    console.log('status: ' + event.CallStatus + ' Duration: ' + event.CallDuration);
+                    result = {'result': 'completed'};
+                    break;
+                default:
+                    result = {'result': event.CallStatus};
+                    break;
+                
+            }   // end callstatus switch
+            
+            callback(null, '');
+            break;
+       
+           default:
+           
+           break;
+       
+       
+    }
+    
+};
