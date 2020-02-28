@@ -1,0 +1,8 @@
+{
+    "task_routing": {
+      "filters": [],
+      "default_filter": {
+        "queue": "WQ71d8e8027773faafee9b5c25cecfd98b"
+      }
+    }
+  }

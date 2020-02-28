@@ -53,7 +53,7 @@ app.post('/', function (req, res) {
   let customer_phone = "+1" + req.body.cust_phone;
   let customer_name = req.body.cust_name;
   //let smsBody = req.body.msgPicker;
-  smsBody = "Hi " + customer_name + ", thanks for contacting Vivint SmartHome. A sales pro will reach out to you shortly. Are you interested in home security, automation, cameras or speak to an agent now ?";
+  smsBody = "Hi " + customer_name + ", thanks for contacting Vivint SmartHome. This is Vivint Bot.  Are you interested in home security, automation, cameras or speak to an agent now?";
 
   console.log ("req.body.cust_phone: " + req.body.cust_phone);
   console.log ("req.body.cust_name: " + req.body.cust_name);

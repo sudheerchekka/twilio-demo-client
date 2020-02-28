@@ -1,0 +1,19 @@
+{
+    "task_routing": {
+      "filters": [
+        {
+          "filter_friendly_name": "break_in",
+          "expression": "1==1",
+          "targets": [
+            {
+              "queue": "WQ71d8e8027773faafee9b5c25cecfd98b",
+              "expression": "worker.skill_value == task.skill_value"
+            }
+          ]
+        }
+      ],
+      "default_filter": {
+        "queue": "WQ71d8e8027773faafee9b5c25cecfd98b"
+      }
+    }
+  }
