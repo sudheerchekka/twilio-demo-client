@@ -48,50 +48,11 @@
     "fieldTypes" : [],
     "tasks" : [
         {
-            "uniqueName" : "security_other_detectors",
+            "uniqueName" : "chat_with_agent",
             "actions" : {
                 "actions" : [
                     {
-                        "say" : "Sounds good. Would you like to talk to our smoke/flood detectors specialist now ?"
-                    },
-                    {
-                        "remember" : {
-                            "skill_type" : "security_smoke_flood"
-                        }
-                    },
-                    { "listen" : true }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "smoke detector"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "flood detector"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "smoke"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "fire"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "flood"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "speak_to_agent",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "Alright, please hold on..."
+                        "say" : "Alright, let me connect you with the specialist..."
                     }
                 ]
             },
@@ -99,185 +60,21 @@
             "samples" : [
                 {
                     "language" : "en-US",
-                    "taggedText" : "speak to agent"
+                    "taggedText" : "chat"
                 },
                 {
                     "language" : "en-US",
-                    "taggedText" : "talk to agent"
+                    "taggedText" : "SMS"
                 },
                 {
                     "language" : "en-US",
-                    "taggedText" : "agent"
+                    "taggedText" : "chat with agent"
                 },
                 {
                     "language" : "en-US",
-                    "taggedText" : "sure"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "yes"
+                    "taggedText" : "SMS with agent"
                 }
             ]
-        },
-        {
-            "uniqueName" : "security_break_in",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "Sounds good. Would you like to talk to our break-ins specialist now ?"
-                    },
-                    {
-                        "remember" : { "skill_type" : "break_in" }
-                    },
-                    { "listen" : true }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "theft"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "break-in"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "security_product",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : {
-                            "speech" : "Great. For security, are you looking for break-in detectors or smoke/flood detectors ?"
-                        }
-                    },
-                    {
-                        "listen" : {
-                            "tasks" : [
-                                "security_break_in",
-                                "security_other_detectors"
-                            ]
-                        }
-                    }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "home security"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "security"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "greeting",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "Hello, what can I help you with today?"
-                    },
-                    { "listen" : true }
-                ]
-            },
-            "fields" : [],
-            "samples" : [
-                {
-                    "language" : "en-US",
-                    "taggedText" : "whatsup"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "sup"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Hello."
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what can you do"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hey"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what'us up"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "what do you do"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi there"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "yo"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi!"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hi there."
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "Hi"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "hello"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "heya"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "good afternoon"
-                },
-                {
-                    "language" : "en-US",
-                    "taggedText" : "good morning"
-                }
-            ]
-        },
-        {
-            "uniqueName" : "fallback",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "I'm sorry didn't quite get that. Please say that again."
-                    },
-                    { "listen" : true }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
-        },
-        {
-            "uniqueName" : "collect_fallback",
-            "actions" : {
-                "actions" : [
-                    {
-                        "say" : "Looks like I'm having trouble. Apologies for that. Let's start again, how can I help you today?"
-                    },
-                    { "listen" : true }
-                ]
-            },
-            "fields" : [],
-            "samples" : []
         },
         {
             "uniqueName" : "goodbye",
@@ -359,9 +156,245 @@
                     "taggedText" : "that would be all"
                 }
             ]
+        },
+        {
+            "uniqueName" : "collect_fallback",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "Looks like I'm having trouble. Apologies for that. Let's start again, how can I help you today?"
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : []
+        },
+        {
+            "uniqueName" : "fallback",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "I'm sorry didn't quite get that. Please say that again."
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : []
+        },
+        {
+            "uniqueName" : "greeting",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "Hello,  what can I help you with today? You can also say home security, automation, cameras or talk to an agent"
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "whatsup"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "sup"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "Hello."
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "what can you do"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "hey"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "what'us up"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "what do you do"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "hi there"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "yo"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "hi!"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "hi there."
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "Hi"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "hello"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "heya"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "good afternoon"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "good morning"
+                }
+            ]
+        },
+        {
+            "uniqueName" : "security_product",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : {
+                            "speech" : "Great. For security, are you looking for break-in detectors or smoke/flood detectors?"
+                        }
+                    },
+                    {
+                        "listen" : {
+                            "tasks" : [
+                                "security_break_in",
+                                "security_other_detectors"
+                            ]
+                        }
+                    }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "home security"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "security"
+                }
+            ]
+        },
+        {
+            "uniqueName" : "security_break_in",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "Sounds good. Would you like to speak or chat with our break-ins specialist now?"
+                    },
+                    {
+                        "remember" : { "skill_type" : "break_in" }
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "breakin"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "theft"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "break-in"
+                }
+            ]
+        },
+        {
+            "uniqueName" : "speak_to_agent",
+            "actions" : {
+                "actions" : [
+                    {
+                        "redirect" : "https://thistle-aardvark-4642.twil.io/connect-with-agent?mode=initOutbound&phoneNumber=%2B14083985848"
+                    }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "speak to agent"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "talk to agent"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "speak"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "speak with agent"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "talk with agent"
+                }
+            ]
+        },
+        {
+            "uniqueName" : "security_other_detectors",
+            "actions" : {
+                "actions" : [
+                    {
+                        "say" : "Sounds good. Would you like to speak or chat with our smoke/flood detectors specialist now?"
+                    },
+                    {
+                        "remember" : {
+                            "skill_type" : "security_flood_smoke"
+                        }
+                    },
+                    { "listen" : true }
+                ]
+            },
+            "fields" : [],
+            "samples" : [
+                {
+                    "language" : "en-US",
+                    "taggedText" : "smoke detector"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "flood detector"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "smoke"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "fire"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "flood"
+                }
+            ]
         }
     ],
     "modelBuild" : {
-        "uniqueName" : "vivint_new_prospect_8-2-2020_10.02.58am"
+        "uniqueName" : "vivint_new_prospect_20-2-2020_9.10.10pm"
     }
 }

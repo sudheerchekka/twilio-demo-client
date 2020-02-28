@@ -26,7 +26,7 @@ exports.handler = function(context, event, callback) {
     console.log('mode: ' + event.mode);
     
     //TODO: remove hard coded Flex #
-    let twilioOutboundNumber = '+12038069587';
+    let twilioOutboundNumber = '+18573239214';
     
     
     
@@ -36,19 +36,38 @@ exports.handler = function(context, event, callback) {
             //  create unique conference Namespace
             //
             
-            let numberToCall = event.phoneNumber;
-            console.log('phoneNumber: ' + event.phoneNumber);
-            console.log("numberToCall: " + numberToCall);
             
-            //  create outbound call
-            client.preview.trusted_comms.phoneCalls
+            
+            //read the from phone number from bot's memory. If not found use the default number from event.param
+            let numberToCall = event.phoneNumber;
+            console.log("numberToCall from event: "+ numberToCall);
+            
+            let memory = event.Memory;
+            if (memory !== undefined)
+            {
+                console.log("memory: "+ memory);
+                const memoryObj = JSON.parse(memory);
+                
+                numberToCall = memoryObj.inboundPhone;
+                console.log("memoryObj.inboundPhone: " + memoryObj.inboundPhone);
+            }
+            
+            //numberToCall = memory.inboundPhone; //overidding the numbertoCall from bot's memory
+
+            console.log("numberToCall: "+ numberToCall);
+            
+            //  create outb ound call
+            //client.preview.trusted_comms.phoneCalls
+              //client.calls
+              client.preview.trusted_comms
+              .phoneCalls
                 .create({
                      reason: 'Following up to your Vivint inquiry',
-                     url: 'https://celadon-greyhound-9622.twil.io/connect-with-agent?mode=menu&numberToCall=' + numberToCall,
+                     url: 'https://thistle-aardvark-4642.twil.io/connect-with-agent?mode=menu&numberToCall=' + numberToCall,
                      to: numberToCall,
                      from: twilioOutboundNumber,
                      timeout: 20,
-                     statusCallback: 'https://celadon-greyhound-9622.twil.io/connect-with-agent?mode=callStatus',
+                     statusCallback: 'https://thistle-aardvark-4642.twil.io/connect-with-agent?mode=callStatus',
                      statusCallbackEvent: ['initiated','ringing','answered', 'completed'],
                      statusCallbackMethod: 'POST'
                   })
@@ -77,7 +96,7 @@ exports.handler = function(context, event, callback) {
             let jsonTaskAttributes = { "type": "inbound", "name": callerNumber }
             twimlResponse.enqueue({
                 waitUrl: 'http://twimlets.com/holdmusic?Bucket=com.twilio.music.guitars',
-                workflowSid : 'WWaea4ce499878f3f4890ec786a00cf991'
+                workflowSid : 'WW09ee58bf98b90541f03b2d43a5d96845'
             })
             .task({}, JSON.stringify(jsonTaskAttributes));
             //response.setBody(twimlResponse);
